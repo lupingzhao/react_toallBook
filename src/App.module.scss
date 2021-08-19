@@ -1,0 +1,206 @@
+// 公共样式
+.login {
+  height: 100vh;
+  background-image: linear-gradient(217deg, #6fb9f8, #3daaf85e, #49d3fc1a, #3fd3ff00);
+
+  .box {
+    width: 200px;
+    height: 200px;
+    background: red;
+  }
+
+  // 导航栏选中的颜色
+  .title {
+    font-size: 22px;
+    font-weight: 700;
+    border-bottom: 3px solid #597fe7;
+  }
+
+  .icon {
+    font-size: 25px;
+  }
+
+  // 验证码
+  .code {
+    background-color: bisque;
+  }
+}
+
+// 首页
+.home {
+  .p510 {
+    padding: 5px 10px;
+  }
+
+  // 弹出层1
+  .popup1 {
+    width: 100vw;
+    height: 500px;
+
+
+  }
+
+  .typebox {
+    // margin-right: 2%;
+    background-color: white;
+  }
+
+  // 固定
+  .fixed {
+    position: fixed;
+    z-index: 999;
+  }
+
+  // 
+  // .edit {}
+}
+
+// 添加账单
+.addBill {
+  .tab {
+    background-color: #f5f5f5;
+    padding: 6px 15px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+  }
+
+  .activetab {
+    background-color: #EAFBF6;
+    border: #66B2FF 1px solid;
+    padding: 6px 15px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+  }
+
+  .activetab1 {
+    background-color: #FBF8F0;
+    border: #ECBE25 1px solid;
+    padding: 6px 15px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+  }
+
+  .date1 {
+    padding: 6px 10px;
+    margin-bottom: 10px;
+  }
+
+  .sum {
+    font-size: 35px;
+    font-weight: 700;
+  }
+
+  // 收入
+  .come {
+    color: #ECBE25;
+
+  }
+
+  // 支出
+  .spen {
+    color: #007FFF;
+  }
+
+  .scoll {
+    overflow-x: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+      width: 0 !important;
+      height: 0 !important;
+      -webkit-appearance: none;
+      background: transparent;
+    }
+  }
+}
+
+.BillLists {
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0 !important;
+    height: 0 !important;
+    -webkit-appearance: none;
+    background: transparent;
+  }
+
+  .spen {
+    color: #69CE98;
+  }
+
+  .come {
+    color: red;
+
+  }
+
+  .ZHI {
+    background-color: #007FFF;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    color: #fff;
+    border-radius: 50%;
+
+  }
+}
+
+.homehead {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 99;
+}
+
+// 收入
+.come1 {
+  color: #ECBE25;
+}
+
+// 支出
+.spen1 {
+  color: #007FFF;
+}
+
+.color {
+  color: #007FFF;
+}
+
+.nike {
+  background-color: rgb(0, 0, 0, 0.2);
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+
+.Statistical {
+
+  .rl {
+    background-color: #F5F5F5;
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .zc {
+    background-color: #7a92ac;
+    color: #007FFF;
+
+  }
+
+  .title {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+  }
+
+  .sr {
+    background-color: #FBF2D3;
+    color: #ECBE25;
+  }
+}
+
+.box33 {
+  position: fixed;
+  background-color: aqua !important;
+}

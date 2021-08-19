@@ -1,0 +1,31 @@
+.cc-number-keyboard-wrap {
+  svg {
+    width: 30px;
+    height: 30px;
+  }
+  position: relative;
+  z-index: 999;
+  background: #f2f3f5;
+  padding: 6px 0 0 6px;
+  &-content {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    &-item {
+      box-sizing: border-box;
+      padding: 0 6px 6px 0;
+      flex-basis: 33.333333%;
+      font-size: 18px;
+      color: #333;
+      font-weight: 500;
+      border-radius: 8px;
+      &-key {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 48px;
+        background: #fff;
+      }
+    }
+  }
+}
