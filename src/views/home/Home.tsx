@@ -17,6 +17,7 @@ import AddBill from '../../components/addiBill/AddBill';
 
 
 
+
 const Home = () => {
     let dispatch = useDispatch()
     let list = useSelector((state: any) => state.user.list)
@@ -72,6 +73,7 @@ const Home = () => {
         dispatch(billList(String(dayjs(date).format('YYYY-MM')), page, 5, 'all'))
     }, [])
 
+
     let [top, setTop] = useState<string>('500px')
     let [left, setLeft] = useState<string>('320px')
 
@@ -99,9 +101,10 @@ const Home = () => {
 
 
     return (
-        <div className={`${styles.home}`} >
-            <div className={`flex p-10 ${styles.homehead}`} style={{ height: 100, width: '100vw', backgroundColor: '#007FFF', color: 'white' }}>
-                <div className='width-100 '>
+        <div className={`${styles.home} `} >
+            <div className={`flex p-10 ${styles.homehead}`}
+                style={{ height: 100, width: '100vw', backgroundColor: '#007FFF', color: 'white' }}>
+                <div className='width-100'>
                     <div className='flex a-i-fe mb-10'>
                         <div className='mr-10'>
                             <span>总支出：</span>
@@ -134,7 +137,9 @@ const Home = () => {
                             <img src={empt} alt="" style={{ width: '100px', height: 100 }} />
                             <div className='p-tb-10 t-a-c'>暂无数据</div>
                         </div>
-                    </div> : billLists.length > 0 && billLists[0] ? <BillLists billLists={billLists} upload={upload}></BillLists> : null
+                    </div> :
+                        // 前面是条件 最后一个是传递的数据名
+                        <BillLists billLists={billLists && billLists.length > 0 && billLists} upload={upload}></BillLists>
                     // 
                 }
 

@@ -82,14 +82,14 @@ const BillLists = (props: props) => {
         state: refreshing,
         handler: refreshData,
       }}
-      load={{
-        state: loading,
-        distance: 200,
-        handler: loadData,
-      }}
+    // load={{
+    //   state: loading,
+    //   distance: 200,
+    //   handler: loadData,
+    // }}
     >
-      <div className={`${styles.BillLists} p-10`} style={{ marginBottom: '0%' }} >
-        <div className='p-10' >
+      <div className={`${styles.BillLists}  p-10`} style={{ marginBottom: '0%' }} >
+        <div className='p-10 ' >
           {props.billLists.length && props.billLists.map((item: any, index: number) => {
             return (
               <div key={index} className='mb-10 p-10' style={{ boxShadow: '0 0 3px gray' }}>

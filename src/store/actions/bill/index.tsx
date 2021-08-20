@@ -1,6 +1,7 @@
 import api from "../../../http/api"
 import { Toast } from "zarm"
 import * as _ from 'lodash'
+import { useHistory } from 'react-router-dom';
 // 账单
 
 //账单列表
@@ -11,6 +12,7 @@ export const billList = (date: string, page: number, page_size: number, type_id?
             // 触发reducer的方法
             // console.log(res);
             if (res.code === 200) {
+                // console.log(7980);
                 // 用于图表数据
                 let zc1 = [] as any
                 let sr1 = [] as any
@@ -63,7 +65,10 @@ export const billList = (date: string, page: number, page_size: number, type_id?
                     more
                 })
                 // console.log(res.data.list);
-            } else Toast.show(res.msg)
+            } else {
+                Toast.show(res.msg)
+                // window.location.href = '/login'
+            }
         }).catch((err: any) => {
             console.log(err)
         })

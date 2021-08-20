@@ -30,6 +30,7 @@ http.interceptors.request.use((config: any) => {
 http.interceptors.response.use((res: any) => {
   return res.data
 }, (err: any) => {
+  console.log(err)
   const status: number = err.response! && err.response.status
   if (status === 400) {
     Toast.show('参数错误');

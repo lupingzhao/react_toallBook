@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import styles from '../../App.module.scss'
 // 引入图片
@@ -30,12 +30,14 @@ const Login = () => {
             dispatch(login(username, password))
         } else {
             dispatch(register(username, password))
-            if (registerboo) {
-                setactiveindex(0)
-            }
         }
         // console.log(558);
     }
+    useEffect(() => {
+        if (registerboo) {
+            setactiveindex(0)
+        }
+    }, [registerboo])
     // 监听
     return (
         <div className={`${styles.login}`}>

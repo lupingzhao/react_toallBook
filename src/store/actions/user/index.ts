@@ -8,7 +8,6 @@ export const register = (username: string, password: string) => {
     // 发请求
     api.register(username, password).then((res: any) => {
       // 触发reducer的方法
-      // console.log(res)
       if (res.code === 200) {
         dispatch({
           type: 'register',

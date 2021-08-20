@@ -29,7 +29,12 @@ const Statistical = () => {
     let pie = useRef(null)
 
     // 图标
-    let icons = ['icon-canyin', 'icon-fushi2', 'icon-jiaotong', 'icon-zhuye', 'icon-gouwu1', 'icon-boshimao', 'icon-yiliao', 'icon-lvxing', 'icon-pengyou', 'icon-jinqianjinbi-', 'icon-gongzi', 'icon-jiangjin', 'icon-zhuanzhang', 'icon-licai', 'icon-duizhang-tuikuan', 'icon-jinqianjinbi--copy']
+    let icons = [
+        'icon-canyin', 'icon-fushi2', 'icon-jiaotong',
+        'icon-zhuye', 'icon-gouwu1', 'icon-boshimao', 'icon-yiliao',
+        'icon-lvxing', 'icon-pengyou', 'icon-jinqianjinbi-', 'icon-gongzi',
+        'icon-jiangjin', 'icon-zhuanzhang', 'icon-licai', 'icon-duizhang-tuikuan',
+        'icon-jinqianjinbi--copy']
 
     let sureDate = (e: any) => {
         setDate(dayjs(e).format('YYYY-MM'))
@@ -56,7 +61,6 @@ const Statistical = () => {
                     trigger: 'item'
                 },
                 legend: {
-
                     left: 'center',
                 },
                 series: [
@@ -109,10 +113,35 @@ const Statistical = () => {
                     </div>
                 </div>
                 {/* 收支小类别 */}
-                {
-                    tab === 0 ?
-                        // 支出
-                        zc && zc.sort((item2: any, index2: any) => {
+                {tab === 0 ?
+                    // 支出
+                    zc.length === 0 ? <div className='p-10 t-a-c'>暂无数据</div> : zc && zc.sort((item2: any, index2: any) => {
+                        return index2.value - item2.value
+                    }).map((item2: any, index2: number) => {
+                        return (
+                            <div key={index2} >
+                                <div className=' width-100 p-tb-5' >
+                                    <div className='flex mr-5 '>
+                                        <i style={{ fontSize: 25 }} className={` mr-5 iconfont ${icons[item2.type - 1]} ${item2.type < 11 ? styles.spen1 : styles.come1}`}></i>
+                                        <div className=' width-30'>{item2.name}￥{item2.value}</div>
+                                        <div className="progress width-70">
+                                            <Progress
+                                                shape="line"
+                                                percent={Number((Number(item2.value) / total[tab] * 100).toFixed(2))}
+                                                theme={tab === 0 ? 'primary' : 'warning'}
+                                                strokeShape={'round'}
+                                                strokeWidth={10}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    })
+                    :
+                    // 收入
+                    <div>
+                        {sr.length === 0 ? <div className='p-10 t-a-c'>暂无数据</div> : sr && sr.sort((item2: any, index2: any) => {
                             return index2.value - item2.value
                         }).map((item2: any, index2: number) => {
                             return (
@@ -135,33 +164,7 @@ const Statistical = () => {
                                 </div>
                             )
                         })
-                        :
-                        // 收入
-                        <div>
-                            {sr && sr.sort((item2: any, index2: any) => {
-                                return index2.value - item2.value
-                            }).map((item2: any, index2: number) => {
-                                return (
-                                    <div key={index2} >
-                                        <div className=' width-100 p-tb-5' >
-                                            <div className='flex mr-5 '>
-                                                <i style={{ fontSize: 25 }} className={` mr-5 iconfont ${icons[item2.type - 1]} ${item2.type < 11 ? styles.spen1 : styles.come1}`}></i>
-                                                <div className=' width-30'>{item2.name}￥{item2.value}</div>
-                                                <div className="progress width-70">
-                                                    <Progress
-                                                        shape="line"
-                                                        percent={Number((Number(item2.value) / total[tab] * 100).toFixed(2))}
-                                                        theme={tab === 0 ? 'primary' : 'warning'}
-                                                        strokeShape={'round'}
-                                                        strokeWidth={10}
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )
-                            })
-                            }  </div>
+                        }  </div>
                 }
                 {/* 收支构成图 */}
                 <div className='flex m-tb-10 jcsb width-100'>
