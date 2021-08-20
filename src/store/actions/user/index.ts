@@ -15,7 +15,13 @@ export const register = (username: string, password: string) => {
           data: true,
         })
         Toast.show(res.msg)
-      } else Toast.show(res.msg)
+      } else {
+        Toast.show(res.msg)
+        dispatch({
+          type: 'register',
+          data: false,
+        })
+      }
       // console.log(res)
     }).catch((err: any) => {
       console.log(err)
@@ -84,12 +90,11 @@ export const signature = (signature: string, avatar: string) => {
     // 发请求
     api.signature(signature, avatar).then((res: any) => {
       // 触发reducer的方法
-      console.log(res)
+      // console.log(res)
       dispatch({
         type: 'signature',
         data: res
       })
-
     }).catch((err: any) => {
       console.log(err)
     })

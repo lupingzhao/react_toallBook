@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { Toast } from 'zarm';
+import { useHistory } from 'react-router-dom';
 const http = axios.create({
   timeout: 10000,
   baseURL: ' http://api.chennick.wang'
@@ -35,6 +36,7 @@ http.interceptors.response.use((res: any) => {
   }
   if (status === 401) {
     Toast.show('登录过期')
+    useHistory().push('/login')
   }
   if (status === 403) {
     Toast.show('没有全选')
