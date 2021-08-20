@@ -51,74 +51,99 @@ const Statistical = () => {
     useWatch(() => {
         var myChart = echarts.init(pie.current!);
         let data = '' as any
-        // 修改颜色
-        let color = ['#9A934B'] as any
+        let color = [] as any
         if (tab1 === 0) {
             data = zc
 
         } else { data = sr, color = ['#FFA34C'] }
         myChart.setOption(
             {
-                // color: color,
-                tooltip: {
-                    trigger: 'item'
-                },
-                legend: {
-                    left: 'center',
-                },
-                series: [
-                    {
-                        type: 'pie',
-                        radius: '50%',
-                        data: data,
-                        emphasis: {
-                            itemStyle: {
-                                shadowBlur: 10,
-                                shadowOffsetX: 0,
-                                shadowColor: 'rgba(0, 0, 0, 0.5)'
-                            }
-                        }
+               { color.length ? color : color: ''},
+            tooltip: {
+            trigger: 'item'
+        },
+            legend: {
+            left: 'center',
+        },
+            series: [
+            {
+                type: 'pie',
+                radius: '50%',
+                data: data,
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
                     }
-                ]
+                }
             }
-        )
-    }, [zc, sr])
+        ]
+            }
+    )
+}, [zc, sr])
 
-    return (
-        <div className={`bgc-low-gray ${styles.Statistical}`} style={{ height: "100vh" }}>
-            <div className='bgc-white p-10 mb-10'>
-                <div className='flex jcc m-tb-10'>
-                    <div className={`${styles.rl}`} onClick={() => { setVisible2(true) }}>
-                        {date}
-                        <span className='p-lr-10 '>|</span>
-                        <i className='iconfont icon-rili'></i>
-                    </div>
-                </div>
-                <div className={`${styles.color} p-10 t-a-c`}>
-                    共支出
-                </div >
-                <div className={`${styles.color} p-10 t-a-c font-s-16 font-w-7`} >
-                    ￥{total[0].toFixed(2)}
-                </div>
-                <div className='font-c-gray p-10 t-a-c'>
-                    共收入￥{total[1].toFixed(2)}
+return (
+    <div className={`bgc-low-gray ${styles.Statistical}`} style={{ height: "100vh" }}>
+        <div className='bgc-white p-10 mb-10'>
+            <div className='flex jcc m-tb-10'>
+                <div className={`${styles.rl}`} onClick={() => { setVisible2(true) }}>
+                    {date}
+                    <span className='p-lr-10 '>|</span>
+                    <i className='iconfont icon-rili'></i>
                 </div>
             </div>
-            {/* 收支 */}
-            <div className='p-10 bgc-white '>
-                <div className='flex jcsb'>
-                    <div className='font-s-18'>
-                        收支构成
-                    </div>
-                    <div className='flex'>
-                        <div className={`mr-10 ${styles.title} ${tab === 0 ? styles.zc : ''}`} onClick={() => { setTab(0) }}>支出</div>
-                        <div className={` ${styles.title} ${tab === 1 ? styles.sr : ''}`} onClick={() => { setTab(1) }}>收入</div>
-                    </div>
+            <div className={`${styles.color} p-10 t-a-c`}>
+                共支出
+            </div >
+            <div className={`${styles.color} p-10 t-a-c font-s-16 font-w-7`} >
+                ￥{total[0].toFixed(2)}
+            </div>
+            <div className='font-c-gray p-10 t-a-c'>
+                共收入￥{total[1].toFixed(2)}
+            </div>
+        </div>
+        {/* 收支 */}
+        <div className='p-10 bgc-white '>
+            <div className='flex jcsb'>
+                <div className='font-s-18'>
+                    收支构成
                 </div>
-                {/* 收支小类别 */}
-                {tab === 0 ?
-                    // 支出
-                    zc.length === 0 ? <div className='p-10 t-a-c'>暂无数据</div> : zc && zc.sort((item2: any, index2: any) => {
+                <div className='flex'>
+                    <div className={`mr-10 ${styles.title} ${tab === 0 ? styles.zc : ''}`} onClick={() => { setTab(0) }}>支出</div>
+                    <div className={` ${styles.title} ${tab === 1 ? styles.sr : ''}`} onClick={() => { setTab(1) }}>收入</div>
+                </div>
+            </div>
+            {/* 收支小类别 */}
+            {tab === 0 ?
+                // 支出
+                zc.length === 0 ? <div className='p-10 t-a-c'>暂无数据</div> : zc && zc.sort((item2: any, index2: any) => {
+                    return index2.value - item2.value
+                }).map((item2: any, index2: number) => {
+                    return (
+                        <div key={index2} >
+                            <div className=' width-100 p-tb-5' >
+                                <div className='flex mr-5 '>
+                                    <i style={{ fontSize: 25 }} className={` mr-5 iconfont ${icons[item2.type - 1]} ${item2.type < 11 ? styles.spen1 : styles.come1}`}></i>
+                                    <div className=' width-30'>{item2.name}￥{item2.value}</div>
+                                    <div className="progress width-70">
+                                        <Progress
+                                            shape="line"
+                                            percent={Number((Number(item2.value) / total[tab] * 100).toFixed(2))}
+                                            theme={tab === 0 ? 'primary' : 'warning'}
+                                            strokeShape={'round'}
+                                            strokeWidth={10}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                })
+                :
+                // 收入
+                <div>
+                    {sr.length === 0 ? <div className='p-10 t-a-c'>暂无数据</div> : sr && sr.sort((item2: any, index2: any) => {
                         return index2.value - item2.value
                     }).map((item2: any, index2: number) => {
                         return (
@@ -141,66 +166,40 @@ const Statistical = () => {
                             </div>
                         )
                     })
-                    :
-                    // 收入
-                    <div>
-                        {sr.length === 0 ? <div className='p-10 t-a-c'>暂无数据</div> : sr && sr.sort((item2: any, index2: any) => {
-                            return index2.value - item2.value
-                        }).map((item2: any, index2: number) => {
-                            return (
-                                <div key={index2} >
-                                    <div className=' width-100 p-tb-5' >
-                                        <div className='flex mr-5 '>
-                                            <i style={{ fontSize: 25 }} className={` mr-5 iconfont ${icons[item2.type - 1]} ${item2.type < 11 ? styles.spen1 : styles.come1}`}></i>
-                                            <div className=' width-30'>{item2.name}￥{item2.value}</div>
-                                            <div className="progress width-70">
-                                                <Progress
-                                                    shape="line"
-                                                    percent={Number((Number(item2.value) / total[tab] * 100).toFixed(2))}
-                                                    theme={tab === 0 ? 'primary' : 'warning'}
-                                                    strokeShape={'round'}
-                                                    strokeWidth={10}
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-                        })
-                        }  </div>
-                }
-                {/* 收支构成图 */}
-                <div className='flex m-tb-10 jcsb width-100'>
-                    <div className='font-s-18'>
-                        收支数据图
-                    </div>
-                    <div className='flex jcc'>
-                        <div className={`mr-10 ${styles.title} ${tab1 === 0 ? styles.zc : ''}`} onClick={() => { setTab1(0) }}>支出</div>
-                        <div className={` ${styles.title} ${tab1 === 1 ? styles.sr : ''}`} onClick={() => { setTab1(1) }}>收入</div>
-                    </div>
+                    }  </div>
+            }
+            {/* 收支构成图 */}
+            <div className='flex m-tb-10 jcsb width-100'>
+                <div className='font-s-18'>
+                    收支数据图
                 </div>
-                <div className='p-10'>
-                    {/* 图表 */}
-                    {billLists[tab] && billLists[tab].length === 0 ? <div className='t-a-c p-10'>暂无数据</div> : ''}
-                    <div ref={pie} style={{ width: "100%", height: 300, }}></div>
+                <div className='flex jcc'>
+                    <div className={`mr-10 ${styles.title} ${tab1 === 0 ? styles.zc : ''}`} onClick={() => { setTab1(0) }}>支出</div>
+                    <div className={` ${styles.title} ${tab1 === 1 ? styles.sr : ''}`} onClick={() => { setTab1(1) }}>收入</div>
                 </div>
             </div>
-            <BottomTabBar></BottomTabBar>
-            {/* 时间选择器 */}
-            <DatePicker
-                visible={visible2}
-                mode="month"
-                // 最大日期
-                max={dayjs().format('YYYY-MM')}
-                // 取消
-                onCancel={() => {
-                    setVisible2(false)
-                }}
-                // 选择时间后确定
-                onOk={sureDate}
-            />
-        </div >
-    )
+            <div className='p-10'>
+                {/* 图表 */}
+                {billLists[tab] && billLists[tab].length === 0 ? <div className='t-a-c p-10'>暂无数据</div> : ''}
+                <div ref={pie} style={{ width: "100%", height: 300, }}></div>
+            </div>
+        </div>
+        <BottomTabBar></BottomTabBar>
+        {/* 时间选择器 */}
+        <DatePicker
+            visible={visible2}
+            mode="month"
+            // 最大日期
+            max={dayjs().format('YYYY-MM')}
+            // 取消
+            onCancel={() => {
+                setVisible2(false)
+            }}
+            // 选择时间后确定
+            onOk={sureDate}
+        />
+    </div >
+)
 }
 
 export default Statistical

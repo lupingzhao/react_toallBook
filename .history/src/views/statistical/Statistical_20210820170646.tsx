@@ -35,6 +35,7 @@ const Statistical = () => {
         'icon-lvxing', 'icon-pengyou', 'icon-jinqianjinbi-', 'icon-gongzi',
         'icon-jiangjin', 'icon-zhuanzhang', 'icon-licai', 'icon-duizhang-tuikuan',
         'icon-jinqianjinbi--copy']
+
     let sureDate = (e: any) => {
         setDate(dayjs(e).format('YYYY-MM'))
         setVisible2(false)
@@ -51,15 +52,13 @@ const Statistical = () => {
     useWatch(() => {
         var myChart = echarts.init(pie.current!);
         let data = '' as any
-        // 修改颜色
-        let color = ['#9A934B'] as any
+        let color = []
         if (tab1 === 0) {
             data = zc
-
-        } else { data = sr, color = ['#FFA34C'] }
+        } else { data = sr }
         myChart.setOption(
             {
-                // color: color,
+                color: color,
                 tooltip: {
                     trigger: 'item'
                 },

@@ -51,7 +51,6 @@ const Statistical = () => {
     useWatch(() => {
         var myChart = echarts.init(pie.current!);
         let data = '' as any
-        // 修改颜色
         let color = ['#9A934B'] as any
         if (tab1 === 0) {
             data = zc
